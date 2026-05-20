@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Velocity Rivals</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Russo+One&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Orbitron', 'Russo One', sans-serif;
+}
+
+body{
+  background:
+  linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.9)),
+  url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=2070&auto=format&fit=crop');
+  background-size:cover;
+  background-position:center;
+  background-attachment:fixed;
+  color:white;
+  min-height:100vh;
+}
+
+.bg-overlay{
+  position:fixed;
+  width:100%;
+  height:100%;
+  background:
+  radial-gradient(circle at top left,
+  rgba(255,0,0,0.2), transparent 30%),
+  radial-gradient(circle at bottom right,
+  rgba(255,0,0,0.15), transparent 30%);
+  z-index:-1;
+}
+
+/* HEADER */
+
+header{
+  background:linear-gradient(90deg,#8b0000,#ff0000);
+  padding:30px;
+  text-align:center;
+  box-shadow:0 0 25px rgba(255,0,0,0.6);
+}
+
+header h1{
+  font-size:55px;
+  letter-spacing:5px;
+  text-transform:uppercase;
+  text-shadow:
+  0 0 10px red,
+  0 0 20px red;
+}
+
+header p{
+  margin-top:10px;
+  opacity:0.8;
+}
+
+.container{
+  width:90%;
+  margin:auto;
+  padding:40px 0;
+}
+
+/* SECTION */
+
+.section-title{
+  font-size:30px;
+  color:#ff1a1a;
+  margin-bottom:25px;
+  border-left:5px solid #ff1a1a;
+  padding-left:15px;
+}
+
+/* PESERTA */
+
+.participants-grid{
+  display:grid;
+  grid-template-columns:
+  repeat(auto-fit,minmax(280px,1fr));
+  gap:25px;
+  margin-bottom:50px;
+}
+
+.participant-card{
+  background:rgba(15,15,15,0.9);
+  border:1px solid #3a0000;
+  border-radius:20px;
+  padding:25px;
+  transition:0.3s;
+  backdrop-filter:blur(5px);
+  box-shadow:0 0 20px rgba(255,0,0,0.2);
+}
+
+.participant-card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 0 30px rgba(255,0,0,0.5);
+}
+
+.participant-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+}
+
+.participant-top h3{
+  color:#ff1a1a;
+  font-size:24px;
+}
+
+.badge{
+  background:#ff0000;
+  color:white;
+  padding:5px 12px;
+  border-radius:10px;
+  font-size:12px;
+  font-weight:bold;
+  box-shadow:0 0 15px rgba(255,0,0,0.5);
+}
+
+.participant-info p{
+  margin-bottom:10px;
+  color:#ddd;
+}
+
+/* MATCH */
+
+.match{
+  background:rgba(15,15,15,0.92);
+  backdrop-filter:blur(5px);
+  border:1px solid #3a0000;
+  border-radius:20px;
+  padding:25px;
+  margin-bottom:25px;
+  box-shadow:0 0 20px rgba(255,0,0,0.25);
+}
+
+.match-title{
+  font-size:24px;
+  margin-bottom:20px;
+  color:#ff1a1a;
+}
+
+.player{
+  background:#101010;
+  border:1px solid #330000;
+  padding:15px;
+  border-radius:15px;
+  position:relative;
+  transition:0.3s;
+}
+
+.player strong{
+  font-size:22px;
+}
+
+.player span{
+  color:#aaa;
+}
+
+.vs{
+  text-align:center;
+  font-size:40px;
+  color:#ff0000;
+  margin:20px 0;
+  font-weight:bold;
+  text-shadow:
+  0 0 10px red,
+  0 0 20px red,
+  0 0 40px red;
+}
+
+/* WIN */
+
+.winner{
+  border:2px solid #ff0000 !important;
+  box-shadow:0 0 25px rgba(255,0,0,0.7);
+}
+
+.winner::after{
+  content:'WIN';
+  position:absolute;
+  top:10px;
+  right:10px;
+  background:#ff0000;
+  color:white;
+  padding:5px 10px;
+  border-radius:10px;
+  font-size:12px;
+  font-weight:bold;
+}
+
+/* LOSE */
+
+.loser{
+  border:2px solid #660000 !important;
+  opacity:0.5;
+}
+
+.loser::after{
+  content:'LOSE';
+  position:absolute;
+  top:10px;
+  right:10px;
+  background:#660000;
+  color:white;
+  padding:5px 10px;
+  border-radius:10px;
+  font-size:12px;
+  font-weight:bold;
+}
+
+/* BUTTON */
+
+.admin-controls{
+  display:flex;
+  gap:10px;
+  margin-top:15px;
+}
+
+button{
+  border:none;
+  padding:12px;
+  border-radius:12px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.win-btn{
+  flex:1;
+  background:#ff0000;
+  color:white;
+  box-shadow:0 0 15px rgba(255,0,0,0.5);
+}
+
+/* ADMIN BUTTON */
+
+.admin-btn{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:#ff0000;
+  color:white;
+  box-shadow:0 0 20px rgba(255,0,0,0.7);
+}
+
+/* ADMIN PANEL */
+
+.admin-panel{
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:350px;
+  background:#111;
+  border:1px solid #550000;
+  border-radius:20px;
+  padding:25px;
+  display:none;
+  z-index:999;
+  box-shadow:0 0 35px rgba(255,0,0,0.4);
+}
+
+.admin-panel h2{
+  text-align:center;
+  margin-bottom:20px;
+  color:#ff1a1a;
+}
+
+.admin-panel input{
+  width:100%;
+  padding:12px;
+  margin-bottom:15px;
+  border:none;
+  border-radius:10px;
+  background:#1a0000;
+  color:white;
+}
+
+.admin-panel button{
+  width:100%;
+  margin-bottom:10px;
+}
+
+.add-race{
+  background:#ff0000;
+  color:white;
+}
+
+.remove-race{
+  background:#660000;
+  color:white;
+}
+
+/* FOOTER */
+
+footer{
+  margin-top:50px;
+  padding:25px;
+  text-align:center;
+  color:#999;
+  border-top:1px solid #330000;
+  background:rgba(0,0,0,0.5);
+}
+
+@media(max-width:768px){
+
+  header h1{
+    font-size:38px;
+  }
+
+}
+
+
+header h1, .section-title, .match-title, .participant-top h3, button, .admin-panel h2{
+  font-family:'Russo One', 'Orbitron', sans-serif;
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+
+</style>
+</head>
+<body>
+
+<div class="bg-overlay"></div>
+
+<header>
+  <h1>VELOCITY RIVALS</h1>
+  <p>Official Drag Race Championship</p>
+</header>
+
+<div class="container">
+
+
+  
+<h2 class="section-title">Beranda Daftar Peserta</h2>
+
+<div class="participants-grid" id="participantsContainer"></div>
+
+<h2 class="section-title">Bracket Tournament</h2>
+
+
+  <div id="raceContainer"></div>
+
+</div>
+
+<!-- ADMIN BUTTON -->
+<button class="admin-btn" onclick="openAdmin()">
+  ADMIN
+</button>
+
+<!-- ADMIN PANEL -->
+<div class="admin-panel" id="adminPanel">
+
+  <h2>ADMIN LOGIN</h2>
+
+  <input type="email"
+  id="email"
+  placeholder="Email Admin">
+
+  <input type="password"
+  id="password"
+  placeholder="Password">
+
+  <button onclick="login()">
+    LOGIN
+  </button>
+
+  <div id="adminFeatures"
+  style="display:none;">
+
+    <button class="add-race"
+    onclick="addParticipant()">
+      + Tambah Peserta
+    </button>
+
+    <button class="add-race"
+    onclick="addRace()">
+      + Tambah Race
+    </button>
+
+    <button class="remove-race"
+    onclick="removeRace()">
+      - Hapus Race
+    </button>
+
+  </div>
+
+</div>
+
+<footer>
+  © 2026 Velocity Rivals Championship
+</footer>
+
+<script type="module">
+
+/* FIREBASE */
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs,
+  deleteDoc,
+  doc,
+  updateDoc
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+import {
+  getAuth,
+  signInWithEmailAndPassword
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+/* FIREBASE CONFIG */
+
+const firebaseConfig = {
+
+  apiKey: "AIzaSyC1mX18lm07kMcm1QlP5xVdR5hUr0oylV8",
+  authDomain: "velocity-rivals-ff2d3.firebaseapp.com",
+  projectId: "velocity-rivals-ff2d3",
+  storageBucket: "velocity-rivals-ff2d3.firebasestorage.app",
+  messagingSenderId: "478017461027",
+  appId: "1:478017461027:web:b0b432b084011605108a96"
+
+};
+
+const app = initializeApp(firebaseConfig);
+
+const db = getFirestore(app);
+
+const auth = getAuth(app);
+
+window.adminLoggedIn = false;
+
+/* LOAD RACES */
+
+async function loadRaces(){
+
+  const raceContainer =
+  document.getElementById("raceContainer");
+
+  raceContainer.innerHTML = "";
+
+  const querySnapshot =
+  await getDocs(collection(db,"races"));
+
+  querySnapshot.forEach((docSnap)=>{
+
+    const data = docSnap.data();
+
+    const raceHTML = `
+
+      <div class="match">
+
+        <div class="match-title">
+          ${data.title}
+        </div>
+
+        <div class="player
+        ${data.winner === 1 ? 'winner' :
+        data.winner === 2 ? 'loser' : ''}">
+
+          <strong>${data.player1}</strong><br>
+          <span>${data.car1}</span>
+
+          ${
+            adminLoggedIn ? `
+            <div class="admin-controls">
+
+              <button class="win-btn"
+              onclick="setWinner('${docSnap.id}',1)">
+              SET WIN
+              </button>
+
+            </div>
+            ` : ''
+          }
+
+        </div>
+
+        <div class="vs">VS</div>
+
+        <div class="player
+        ${data.winner === 2 ? 'winner' :
+        data.winner === 1 ? 'loser' : ''}">
+
+          <strong>${data.player2}</strong><br>
+          <span>${data.car2}</span>
+
+          ${
+            adminLoggedIn ? `
+            <div class="admin-controls">
+
+              <button class="win-btn"
+              onclick="setWinner('${docSnap.id}',2)">
+              SET WIN
+              </button>
+
+            </div>
+            ` : ''
+          }
+
+        </div>
+
+      </div>
+
+    `;
+
+    raceContainer.innerHTML += raceHTML;
+
+  });
+
+}
+
+/* ADD RACE */
+
+window.addRace = async function(){
+
+  if(!adminLoggedIn){
+    return alert("Admin Only!");
+  }
+
+  const title = prompt("Nama Race");
+  const player1 = prompt("Nama Peserta 1");
+  const car1 = prompt("Mobil Peserta 1");
+
+  const player2 = prompt("Nama Peserta 2");
+  const car2 = prompt("Mobil Peserta 2");
+
+  if(!title || !player1 || !player2){
+    return alert("Data tidak lengkap!");
+  }
+
+  await addDoc(collection(db,"races"),{
+
+    title:title,
+
+    player1:player1,
+    car1:car1,
+
+    player2:player2,
+    car2:car2,
+
+    winner:0
+
+  });
+
+  loadParticipants();
+loadRaces();
+
+}
+
+/* REMOVE RACE */
+
+window.removeRace = async function(){
+
+  if(!adminLoggedIn){
+    return alert("Admin Only!");
+  }
+
+  const querySnapshot =
+  await getDocs(collection(db,"races"));
+
+  let lastDoc = null;
+
+  querySnapshot.forEach((docSnap)=>{
+    lastDoc = docSnap;
+  });
+
+  if(lastDoc){
+
+    await deleteDoc(
+      doc(db,"races",lastDoc.id)
+    );
+
+    loadParticipants();
+loadRaces();
+
+  }
+
+}
+
+/* SET WINNER */
+
+window.setWinner = async function(raceId,winner){
+
+  if(!adminLoggedIn){
+    return alert("Admin Only!");
+  }
+
+  const raceRef =
+  doc(db,"races",raceId);
+
+  await updateDoc(raceRef,{
+    winner:winner
+  });
+
+  loadParticipants();
+loadRaces();
+
+}
+
+/* LOGIN FIREBASE */
+
+window.login = async function(){
+
+  const email =
+  document.getElementById("email").value;
+
+  const password =
+  document.getElementById("password").value;
+
+  try{
+
+    await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+
+    adminLoggedIn = true;
+
+    alert("Login Admin Berhasil!");
+
+    document.getElementById("adminFeatures")
+    .style.display = "block";
+
+    loadParticipants();
+loadRaces();
+
+  }catch(error){
+
+    alert("Email atau Password Salah!");
+
+    console.log(error);
+
+  }
+
+}
+
+/* OPEN PANEL */
+
+window.openAdmin = function(){
+
+  document.getElementById("adminPanel")
+  .style.display = "block";
+
+}
+
+
+/* LOAD PARTICIPANTS */
+async function loadParticipants(){
+  const participantsContainer = document.getElementById("participantsContainer");
+  if(!participantsContainer) return;
+
+  participantsContainer.innerHTML = "";
+
+  const querySnapshot = await getDocs(collection(db,"participants"));
+
+  querySnapshot.forEach((docSnap)=>{
+    const data = docSnap.data();
+
+    participantsContainer.innerHTML += `
+      <div class="participant-card">
+        <div class="participant-top">
+          <h3>${data.name || 'Peserta'}</h3>
+          <span class="badge">${data.status || 'READY'}</span>
+        </div>
+        <div class="participant-info">
+          <p>${data.car || 'Mobil belum diisi.'}</p>
+          <p>${data.note || 'Siap bertanding.'}</p>
+        </div>
+        ${
+          adminLoggedIn ? `
+          <div class="admin-controls">
+            <button class="remove-race" onclick="deleteParticipant('${docSnap.id}')">
+              HAPUS
+            </button>
+          </div>
+          ` : ''
+        }
+      </div>
+    `;
+  });
+}
+
+/* ADD PARTICIPANT */
+window.addParticipant = async function(){
+  if(!adminLoggedIn) return alert("Admin Only!");
+
+  const name = prompt("Nama Peserta");
+  const car = prompt("Mobil");
+  const status = prompt("Status (READY/WAITING)") || "READY";
+  const note = prompt("Catatan") || "Siap bertanding.";
+
+  if(!name) return alert("Nama wajib diisi!");
+
+  await addDoc(collection(db,"participants"), {
+    name, car, status, note
+  });
+
+  loadParticipants();
+}
+
+/* DELETE PARTICIPANT */
+window.deleteParticipant = async function(id){
+  if(!adminLoggedIn) return alert("Admin Only!");
+  await deleteDoc(doc(db, "participants", id));
+  loadParticipants();
+}
+
+/* FIRST LOAD */
+
+loadParticipants();
+loadRaces();
+
+</script>
+
+</body>
+</html>
